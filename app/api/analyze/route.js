@@ -89,8 +89,7 @@ export async function POST(req) {
             console.warn("Failed to auto-discover models, using default:", e);
         }
 
-        // 3. Try Auto-Detected / Default Model
-        const model = genAI.getGenerativeModel({ model: modelToUse });
+        // Executing model generation
 
         try {
             const result = await model.generateContent([prompt, imagePart]);
