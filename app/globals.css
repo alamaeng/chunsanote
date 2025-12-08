@@ -374,3 +374,36 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .split-view {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .uploader-wrapper {
+    min-height: 300px;
+  }
+
+  .uploader-box {
+    height: 300px;
+  }
+}
