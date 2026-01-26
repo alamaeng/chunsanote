@@ -48,7 +48,12 @@ export async function POST(req) {
             const result = await model.generateContent([prompt, imagePart]);
             const response = await result.response;
             // Force replace \frac with \dfrac just in case the model misses it
-            const text = response.text().replace(/\\frac/g, '\\dfrac');
+            // Also strip markdown code block syntax if present
+            const text = response.text()
+                .replace(/\\frac/g, '\\dfrac')
+                .replace(/^```markdown\s*/, '')
+                .replace(/^```\s*/, '')
+                .replace(/```$/, '');
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
