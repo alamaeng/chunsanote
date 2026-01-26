@@ -36,7 +36,8 @@ export async function POST(req) {
 
         const prompt = `Analyze this image and extract ONLY the problem text and mathematical formulas. 
         Output the result in Markdown format. 
-        Use LaTeX for math formulas, wrapping inline math in $ and block math in $$. 
+        Use LaTeX for math formulas, wrapping inline math in $ and block math in $$.
+        IMPORTANT: Use \\dfrac for ALL fractions instead of \\frac.
         Do NOT include any solution, answer key, or step-by-step explanation. 
         Return ONLY the question/problem content.`;
 
@@ -46,7 +47,8 @@ export async function POST(req) {
         try {
             const result = await model.generateContent([prompt, imagePart]);
             const response = await result.response;
-            const text = response.text();
+            // Force replace \frac with \dfrac just in case the model misses it
+            const text = response.text().replace(/\\frac/g, '\\dfrac');
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
