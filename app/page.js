@@ -6,6 +6,7 @@ import MarkdownEditor from "@/components/MarkdownEditor";
 import MathPreview from "@/components/MathPreview";
 import SettingsModal from "@/components/SettingsModal";
 import { convertImageToMarkdown } from "@/lib/ocrService";
+import { convertPdfToImages } from "@/lib/pdfUtils";
 
 export default function Home() {
     const [step, setStep] = useState('upload'); // 'upload' | 'edit'
@@ -17,13 +18,36 @@ export default function Home() {
         if (!file) return;
         setLoading(true);
         try {
-            const { text, usedModel } = await convertImageToMarkdown(file);
-            setMarkdown(text);
-            setUsedModel(usedModel);
+            let combinedText = "";
+            let modelUsed = null;
+
+            if (file.type === "application/pdf") {
+                // 1. Convert PDF to Images
+                const images = await convertPdfToImages(file);
+
+                // 2. Process each image
+                for (let i = 0; i < images.length; i++) {
+                    // Update loading text if you want to reflect progress
+                    // setLoadingText(`Processing page ${i + 1} of ${images.length}...`); 
+
+                    // images[i] is now a File object, so we can pass it directly
+                    const { text, usedModel } = await convertImageToMarkdown(images[i]);
+                    combinedText += `\n\n--- Page ${i + 1} ---\n\n` + text;
+                    modelUsed = usedModel; // Store the last used model
+                }
+            } else {
+                // Handle single image
+                const { text, usedModel } = await convertImageToMarkdown(file);
+                combinedText = text;
+                modelUsed = usedModel;
+            }
+
+            setMarkdown(combinedText);
+            setUsedModel(modelUsed);
             setStep('edit');
         } catch (error) {
-            console.error("Failed to convert image", error);
-            alert("Failed to convert image. " + error.message);
+            console.error("Failed to convert file", error);
+            alert("Failed to convert file. " + error.message);
         } finally {
             setLoading(false);
         }

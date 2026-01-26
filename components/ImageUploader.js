@@ -15,8 +15,11 @@ export default function ImageUploader({ onImageSelect }) {
                 onImageSelect(file, reader.result);
             };
             reader.readAsDataURL(file);
+        } else if (file.type === "application/pdf") {
+            setPreview("PDF");
+            onImageSelect(file, null);
         } else {
-            alert("Please upload an image file.");
+            alert("Please upload an image or PDF file.");
         }
     }, [onImageSelect]);
 
@@ -59,7 +62,14 @@ export default function ImageUploader({ onImageSelect }) {
             {preview ? (
                 <div className="uploader-box glass-panel active">
                     <div className="preview-container">
-                        <img src={preview} alt="Preview" className="preview-image" />
+                        {preview === "PDF" ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--accent)' }}>
+                                <Upload size={48} />
+                                <span style={{ marginTop: '1rem', fontWeight: 600 }}>PDF Selected</span>
+                            </div>
+                        ) : (
+                            <img src={preview} alt="Preview" className="preview-image" />
+                        )}
                         <button onClick={clearImage} className="clear-btn">
                             <X size={20} />
                         </button>
@@ -78,13 +88,13 @@ export default function ImageUploader({ onImageSelect }) {
                         <p style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>
                             <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Click to upload</span> or drag and drop
                         </p>
-                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>SVG, PNG, JPG or GIF</p>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>SVG, PNG, JPG, GIF or PDF</p>
                     </div>
                     <input
                         type="file"
                         className="hidden"
                         style={{ display: 'none' }}
-                        accept="image/*"
+                        accept="image/*,application/pdf"
                         onChange={handleChange}
                     />
                 </label>

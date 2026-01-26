@@ -13,6 +13,7 @@
     "katex": "^0.16.27",
     "lucide-react": "^0.556.0",
     "next": "16.0.7",
+    "pdfjs-dist": "^5.4.530",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-markdown": "^10.1.0",
