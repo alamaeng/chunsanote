@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Settings, X, Key, Save } from "lucide-react";
 
 export default function SettingsModal() {
@@ -8,10 +8,11 @@ export default function SettingsModal() {
     const [apiKey, setApiKey] = useState("");
     const [saved, setSaved] = useState(false);
 
-    useEffect(() => {
+    const handleOpen = () => {
         const storedKey = localStorage.getItem("gemini_api_key");
         if (storedKey) setApiKey(storedKey);
-    }, []);
+        setIsOpen(true);
+    };
 
     const handleSave = () => {
         if (apiKey.trim()) {
@@ -33,7 +34,7 @@ export default function SettingsModal() {
     return (
         <>
             <button
-                onClick={() => setIsOpen(true)}
+                onClick={handleOpen}
                 className="fixed bottom-4 left-4 p-3 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full shadow-lg backdrop-blur border border-white/10 transition-all z-50"
                 title="Settings"
             >
@@ -85,8 +86,8 @@ export default function SettingsModal() {
                                 onClick={handleSave}
                                 disabled={!apiKey}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${saved
-                                        ? "bg-green-500/20 text-green-400"
-                                        : "bg-blue-600 hover:bg-blue-500 text-white"
+                                    ? "bg-green-500/20 text-green-400"
+                                    : "bg-blue-600 hover:bg-blue-500 text-white"
                                     }`}
                             >
                                 {saved ? (
