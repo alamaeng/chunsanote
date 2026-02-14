@@ -50,8 +50,8 @@ export async function POST(req) {
         6. **Auto-Sizing**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. NEVER use plain ( ) or [ ].
         7. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
         8. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
-        9. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
-        10. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
+        10. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
+        11. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
 
         // Direct usage without fallback logic
         const model = genAI.getGenerativeModel({ model: modelToUse });
