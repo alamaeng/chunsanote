@@ -53,8 +53,12 @@ export async function POST(req) {
            - WRONG: (1)
         8. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of \\mathbb{R}).
         9. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
-        10. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
-        11. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
+        10. **Math Consolidation**: Combine adjacent mathematical terms into a SINGLE LaTeX block. Do NOT split variables and operators.
+           - RIGHT: $P(x) = x^2 + 2x + 1$
+           - WRONG: $P(x)$ = $x^2$ + $2x$ + $1$
+           - WRONG: $P$=$x^2$
+        11. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
+        12. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
 
         // Direct usage without fallback logic
         const model = genAI.getGenerativeModel({ model: modelToUse });
@@ -85,6 +89,18 @@ export async function POST(req) {
 
             // 5. Remove \textit{...} -> ...
             text = text.replace(/\\textit\{([^{}]+)\}/g, '$1');
+
+            // 6. Consolidate fragmented math expressions
+            // Merge "$=$", "$+$", "$-$" etc. by removing the boundary "$" signs
+            // Example: $A$=$B$ -> $A=B$
+            const operators = ['=', '\\+', '-', '\\u00D7', '\\u00F7', '>', '<', '\\u2264', '\\u2265']; // =, +, -, x, /, >, <, <=, >=
+            operators.forEach(op => {
+                // Regex matches: $ space* op space* $
+                // Replace with: space* op space*
+                const regex = new RegExp(`\\$\\s*(${op})\\s*\\$`, 'g');
+                text = text.replace(regex, '$1');
+            });
+
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
