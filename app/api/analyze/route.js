@@ -36,10 +36,14 @@ export async function POST(req) {
 
         const prompt = `Analyze this image and extract ONLY the problem text and mathematical formulas. 
         Output the result in Markdown format. 
-        Use LaTeX for math formulas, wrapping inline math in $ and block math in $$.
-        IMPORTANT: Use \\dfrac for ALL fractions instead of \\frac.
-        Do NOT include any solution, answer key, or step-by-step explanation. 
-        Return ONLY the question/problem content.`;
+        
+        CRITICAL RULES:
+        1. **Verbatim Transcription**: Do NOT summarize or paraphrase. Transcribe every single word, number, and symbol exactly as it appears.
+        2. **No Omissions**: Do NOT skip any part of the problem, including sub-questions (a, b, c...), labels, or small text.
+        3. **Math Formatting**: Use LaTeX for math formulas. Wrap inline math in $...$ and block math in $$...$$.
+        4. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
+        5. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
+        6. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
 
         // Direct usage without fallback logic
         const model = genAI.getGenerativeModel({ model: modelToUse });
