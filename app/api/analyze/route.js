@@ -41,9 +41,12 @@ export async function POST(req) {
         1. **Verbatim Transcription**: Do NOT summarize or paraphrase. Transcribe every single word, number, and symbol exactly as it appears.
         2. **No Omissions**: Do NOT skip any part of the problem, including sub-questions (a, b, c...), labels, or small text.
         3. **Math Formatting**: Use LaTeX for math formulas. Wrap inline math in $...$ and block math in $$...$$.
-        4. **English as Math**: TREAT ALL ENGLISH CHARACTERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $x$, $y$, $A$, $cm$, $kg$). NEVER leave English text as plain text.
-        5. **Korean Text Preservation**: DO NOT wrap Korean characters in LaTeX math ($...$). Korean text must remain PLAIN TEXT to be readable.
-        6. **Numbers as Math**: TREAT ALL NUMBERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $1$, $2$, $3.14$, $100$). NEVER leave numbers as plain text.
+        4. **English & Numbers as Math**: TREAT ALL ENGLISH CHARACTERS, NUMBERS, AND SYMBOLS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $x$, $y$, $1$, $10$, $cm$, $kg$). NEVER leave them as plain text, even if they are in the middle of a Korean sentence.
+        5. **Korean Text Preservation**: DO NOT wrap Korean characters in LaTeX math ($...$). Korean text must remain PLAIN TEXT.
+        6. **Mixed Content Rule**: When Korean and Math are mixed, separate them correctly.
+           - RIGHT: 길이가 $10cm$ 이다.
+           - WRONG: 길이가 10cm 이다.
+           - WRONG: $길이가 10cm 이다$.
         6. **Auto-Sizing**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. NEVER use plain ( ) or [ ].
         7. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
         8. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
