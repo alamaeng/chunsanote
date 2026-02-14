@@ -42,7 +42,8 @@ export async function POST(req) {
         2. **No Omissions**: Do NOT skip any part of the problem, including sub-questions (a, b, c...), labels, or small text.
         3. **Math Formatting**: Use LaTeX for math formulas. Wrap inline math in $...$ and block math in $$...$$.
         4. **English as Math**: TREAT ALL ENGLISH CHARACTERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $x$, $y$, $A$, $cm$, $kg$). NEVER leave English text as plain text.
-        5. **Numbers as Math**: TREAT ALL NUMBERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $1$, $2$, $3.14$, $100$). NEVER leave numbers as plain text.
+        5. **Korean Text Preservation**: DO NOT wrap Korean characters in LaTeX math ($...$). Korean text must remain PLAIN TEXT to be readable.
+        6. **Numbers as Math**: TREAT ALL NUMBERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $1$, $2$, $3.14$, $100$). NEVER leave numbers as plain text.
         6. **Auto-Sizing**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. NEVER use plain ( ) or [ ].
         7. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
         8. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
