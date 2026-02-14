@@ -47,9 +47,12 @@ export async function POST(req) {
            - RIGHT: 길이가 $10cm$ 이다.
            - WRONG: 길이가 10cm 이다.
            - WRONG: $길이가 10cm 이다$.
-        6. **Auto-Sizing**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. NEVER use plain ( ) or [ ].
-        7. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
-        8. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
+        7. **Auto-Sizing & Math Delimiters**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. AND MOST IMPORTANTLY, THESE MUST BE WRAPPED IN $...$.
+           - RIGHT: $\\left(1\\right)$
+           - WRONG: \\left(1\\right)
+           - WRONG: (1)
+        8. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of \\mathbb{R}).
+        9. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
         10. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
         11. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
 
