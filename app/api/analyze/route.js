@@ -44,7 +44,7 @@ export async function POST(req) {
         4. **English as Math**: TREAT ALL ENGLISH CHARACTERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $x$, $y$, $A$, $cm$, $kg$). NEVER leave English text as plain text.
         5. **Numbers as Math**: TREAT ALL NUMBERS AS MATHEMATICAL VARIABLES. ALWAYS wrap them in LaTeX (e.g., $1$, $2$, $3.14$, $100$). NEVER leave numbers as plain text.
         6. **Auto-Sizing**: ALWAYS use \\left( ... \\right) for parentheses and \\left[ ... \\right] for brackets. NEVER use plain ( ) or [ ].
-        7. **Forbidden Commands**: Do NOT use \\mathbb or \\text. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
+        7. **Forbidden Commands**: Do NOT use \\mathbb, \\text, or \\textit. Use standard math fonts (e.g., just $R$ instead of $\\mathbb{R}$).
         8. **Fractions**: You MUST use \\dfrac{}{} for ALL fractions. Never use \\frac.
         9. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
         10. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
@@ -57,7 +57,7 @@ export async function POST(req) {
             const response = await result.response;
             // Force replace \frac with \dfrac just in case the model misses it
             // Also strip markdown code block syntax if present
-            // And STRICTLY remove \mathbb, \text, \mathit
+            // And STRICTLY remove \mathbb, \text, \mathit, \textit
             let text = response.text()
                 .replace(/^```markdown\s*/, '')
                 .replace(/^```\s*/, '')
@@ -75,6 +75,9 @@ export async function POST(req) {
 
             // 4. Remove \mathit{...} -> ...
             text = text.replace(/\\mathit\{([^{}]+)\}/g, '$1');
+
+            // 5. Remove \textit{...} -> ...
+            text = text.replace(/\\textit\{([^{}]+)\}/g, '$1');
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
