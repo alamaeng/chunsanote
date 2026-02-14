@@ -57,11 +57,24 @@ export async function POST(req) {
             const response = await result.response;
             // Force replace \frac with \dfrac just in case the model misses it
             // Also strip markdown code block syntax if present
-            const text = response.text()
-                .replace(/\\frac/g, '\\dfrac')
+            // And STRICTLY remove \mathbb, \text, \mathit
+            let text = response.text()
                 .replace(/^```markdown\s*/, '')
                 .replace(/^```\s*/, '')
                 .replace(/```$/, '');
+
+            // 1. Replace \frac with \dfrac
+            text = text.replace(/\\frac/g, '\\dfrac');
+
+            // 2. Remove \mathbb{...} -> ...
+            text = text.replace(/\\mathbb\{([^{}]+)\}/g, '$1');
+            text = text.replace(/\\mathbb\s+([a-zA-Z])/g, '$1');
+
+            // 3. Remove \text{...} -> ...
+            text = text.replace(/\\text\{([^{}]+)\}/g, '$1');
+
+            // 4. Remove \mathit{...} -> ...
+            text = text.replace(/\\mathit\{([^{}]+)\}/g, '$1');
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
