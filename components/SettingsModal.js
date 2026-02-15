@@ -6,17 +6,23 @@ import { Settings, X, Key, Save } from "lucide-react";
 export default function SettingsModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [apiKey, setApiKey] = useState("");
+    const [model, setModel] = useState("gemini-2.0-flash");
     const [saved, setSaved] = useState(false);
 
     const handleOpen = () => {
         const storedKey = localStorage.getItem("gemini_api_key");
         if (storedKey) setApiKey(storedKey);
+
+        const storedModel = localStorage.getItem("gemini_model");
+        if (storedModel) setModel(storedModel);
+
         setIsOpen(true);
     };
 
     const handleSave = () => {
         if (apiKey.trim()) {
             localStorage.setItem("gemini_api_key", apiKey.trim());
+            localStorage.setItem("gemini_model", model);
             setSaved(true);
             setTimeout(() => {
                 setSaved(false);
@@ -75,6 +81,24 @@ export default function SettingsModal() {
                             </p>
                         </div>
 
+                        <div className="mb-6">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Gemini Model
+                            </label>
+                            <select
+                                value={model}
+                                onChange={(e) => setModel(e.target.value)}
+                                className="w-full bg-gray-900/50 border border-gray-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                            >
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (Fastest)</option>
+                                <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro Exp (Best for Diagrams)</option>
+                                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Stable High Quality)</option>
+                            </select>
+                            <p className="mt-2 text-xs text-gray-500">
+                                &apos;Pro&apos; models are slower but better at generating SVG diagrams.
+                            </p>
+                        </div>
+
                         <div className="flex justify-between items-center">
                             <button
                                 onClick={handleClear}
@@ -95,7 +119,7 @@ export default function SettingsModal() {
                                         <Save size={16} /> Saved!
                                     </>
                                 ) : (
-                                    "Save API Key"
+                                    "Save Settings"
                                 )}
                             </button>
                         </div>
