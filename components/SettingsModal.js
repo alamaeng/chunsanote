@@ -91,8 +91,8 @@ export default function SettingsModal() {
                                 className="w-full bg-gray-900/50 border border-gray-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                             >
                                 <option value="gemini-2.0-flash">Gemini 2.0 Flash (Fastest)</option>
-                                <option value="gemini-1.5-pro">Gemini 1.5 Pro (High Quality)</option>
-                                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Balanced)</option>
+                                <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro (High Quality)</option>
+                                <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Balanced)</option>
                             </select>
                             <p className="mt-2 text-xs text-gray-500">
                                 &apos;Pro&apos; models are slower but better at generating SVG diagrams.
