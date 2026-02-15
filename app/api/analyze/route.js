@@ -58,7 +58,18 @@ export async function POST(req) {
            - WRONG: $P(x)$ = $x^2$ + $2x$ + $1$
            - WRONG: $P$=$x^2$
         11. **Details**: Pay extreme attention to subscripts, superscripts, and special symbols.
-        12. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.`;
+        12. **Clean Output**: Do NOT include any solution, answer key, or step-by-step explanation. Return ONLY the question/problem content.
+        13. **Diagrams to SVG**: If the image contains a geometric figure or graph:
+            - Generate semantic SVG code to represent it.
+            - Use standard SVG elements (line, circle, rect, path, text).
+            - Wrap the SVG in a markdown code block with language 'svg'.
+            - Example:
+              \`\`\`svg
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- SVG content -->
+              </svg>
+              \`\`\`
+            - Place the SVG block exactly where the diagram appears in the problem.`;
 
         // Direct usage without fallback logic
         const model = genAI.getGenerativeModel({ model: modelToUse });

@@ -16,6 +16,21 @@ export default function MathPreview({ content }) {
                 <ReactMarkdown
                     remarkPlugins={[remarkMath, remarkBreaks]}
                     rehypePlugins={[rehypeKatex]}
+                    components={{
+                        code({ node, inline, className, children, ...props }) {
+                            const match = /language-(\w+)/.exec(className || '')
+                            if (!inline && match && match[1] === 'svg') {
+                                return (
+                                    <div
+                                        className="svg-container"
+                                        dangerouslySetInnerHTML={{ __html: String(children).replace(/\n$/, '') }}
+                                        style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}
+                                    />
+                                );
+                            }
+                            return <code className={className} {...props}>{children}</code>;
+                        }
+                    }}
                 >
                     {content}
                 </ReactMarkdown>
