@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { Upload, X } from "lucide-react";
+import Image from "next/image";
 
 export default function ImageUploader({ onImageSelect }) {
     const [dragActive, setDragActive] = useState(false);
@@ -68,7 +69,15 @@ export default function ImageUploader({ onImageSelect }) {
                                 <span style={{ marginTop: '1rem', fontWeight: 600 }}>PDF Selected</span>
                             </div>
                         ) : (
-                            <img src={preview} alt="Preview" className="preview-image" />
+                            <Image
+                                src={preview}
+                                alt="Preview"
+                                className="preview-image"
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{ width: '100%', height: 'auto' }}
+                            />
                         )}
                         <button onClick={clearImage} className="clear-btn">
                             <X size={20} />

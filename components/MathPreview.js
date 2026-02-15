@@ -19,14 +19,30 @@ export default function MathPreview({ content }) {
                     components={{
                         code({ node, inline, className, children, ...props }) {
                             const match = /language-(\w+)/.exec(className || '')
-                            if (!inline && match && match[1] === 'svg') {
-                                return (
-                                    <div
-                                        className="svg-container"
-                                        dangerouslySetInnerHTML={{ __html: String(children).replace(/\n$/, '') }}
-                                        style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}
-                                    />
-                                );
+                            const lang = match ? match[1] : ''
+
+                            // Check for svg or xml language
+                            if (!inline && (lang === 'svg' || lang === 'xml')) {
+                                // Extract the raw SVG string from children
+                                const svgString = String(children).replace(/\n$/, '');
+
+                                // Basic validation: Ensure it starts with <svg
+                                if (svgString.trim().startsWith('<svg')) {
+                                    return (
+                                        <div
+                                            className="svg-container"
+                                            dangerouslySetInnerHTML={{ __html: svgString }}
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                margin: '1rem 0',
+                                                backgroundColor: 'white',
+                                                padding: '1rem',
+                                                borderRadius: '8px'
+                                            }}
+                                        />
+                                    );
+                                }
                             }
                             return <code className={className} {...props}>{children}</code>;
                         }
