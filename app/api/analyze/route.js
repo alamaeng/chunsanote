@@ -101,6 +101,9 @@ export async function POST(req) {
                 text = text.replace(regex, '$1');
             });
 
+            // 7. Replace "..." with "\cdots"
+            text = text.replace(/\.\.\./g, '\\cdots');
+
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
             throw new Error(`Model '${modelToUse}' failed: ${genError.message}.`);
