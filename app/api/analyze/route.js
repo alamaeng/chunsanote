@@ -101,8 +101,8 @@ export async function POST(req) {
                 text = text.replace(regex, '$1');
             });
 
-            // 7. Replace "..." with "\cdots"
-            text = text.replace(/\.\.\./g, '\\cdots');
+            // 7. Replace "..." or "...." with "$\cdots$"
+            text = text.replace(/\.{3,}/g, '$\\cdots$');
 
             return NextResponse.json({ text, usedModel: modelToUse });
         } catch (genError) {
