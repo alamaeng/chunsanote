@@ -86,7 +86,7 @@ export default function SettingsModal() {
                                 Gemini Model
                             </label>
                             <select
-                                value={["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"].includes(model) ? model : "custom"}
+                                value={["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-1.5-flash-8b"].includes(model) ? model : "custom"}
                                 onChange={(e) => {
                                     if (e.target.value === "custom") {
                                         setModel("");
@@ -96,13 +96,14 @@ export default function SettingsModal() {
                                 }}
                                 className="w-full bg-gray-900/50 border border-gray-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                             >
-                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (Fastest)</option>
-                                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                                <option value="gemini-1.5-flash-8b">Gemini 1.5 Flash-8B (가장 빠름/독립할당량)</option>
+                                <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash</option>
+                                <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro</option>
                                 <option value="custom">Custom Model ID...</option>
                             </select>
 
-                            {(!["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"].includes(model)) && (
+                            {(!["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-1.5-flash-8b"].includes(model)) && (
                                 <input
                                     type="text"
                                     value={model}
