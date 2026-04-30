@@ -86,7 +86,7 @@ export default function SettingsModal() {
                                 Gemini Model
                             </label>
                             <select
-                                value={["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-1.5-flash-8b"].includes(model) ? model : "custom"}
+                                value={["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.5-flash-8b"].includes(model) ? model : "custom"}
                                 onChange={(e) => {
                                     if (e.target.value === "custom") {
                                         setModel("");
@@ -98,12 +98,12 @@ export default function SettingsModal() {
                             >
                                 <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
                                 <option value="gemini-1.5-flash-8b">Gemini 1.5 Flash-8B (가장 빠름/독립할당량)</option>
-                                <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash</option>
-                                <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro</option>
+                                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
                                 <option value="custom">Custom Model ID...</option>
                             </select>
 
-                            {(!["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-1.5-flash-8b"].includes(model)) && (
+                            {(!["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.5-flash-8b"].includes(model)) && (
                                 <input
                                     type="text"
                                     value={model}
