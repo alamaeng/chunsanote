@@ -19,8 +19,8 @@ export async function POST(req) {
             );
         }
 
-        // Use requested model or fallback to gemini-2.0-flash
-        const modelToUse = preferredModel || "gemini-2.0-flash";
+        // Use requested model or fallback to gemini-3.5-flash
+        const modelToUse = preferredModel || "gemini-3.5-flash";
 
         const genAI = new GoogleGenerativeAI(apiKey);
 

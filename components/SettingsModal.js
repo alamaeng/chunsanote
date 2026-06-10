@@ -6,7 +6,7 @@ import { Settings, X, Key, Save } from "lucide-react";
 export default function SettingsModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [apiKey, setApiKey] = useState("");
-    const [model, setModel] = useState("gemini-2.0-flash");
+    const [model, setModel] = useState("gemini-3.5-flash");
     const [saved, setSaved] = useState(false);
 
     const handleOpen = () => {
@@ -86,7 +86,7 @@ export default function SettingsModal() {
                                 Gemini Model
                             </label>
                             <select
-                                value={["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-pro"].includes(model) ? model : "custom"}
+                                value={["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-pro"].includes(model) ? model : "custom"}
                                 onChange={(e) => {
                                     if (e.target.value === "custom") {
                                         setModel("");
@@ -96,13 +96,15 @@ export default function SettingsModal() {
                                 }}
                                 className="w-full bg-gray-900/50 border border-gray-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                             >
-                                <option value="gemini-2.5-flash">Gemini 2.5 Flash (최신/권장)</option>
+                                <option value="gemini-3.5-flash">Gemini 3.5 Flash (최신/권장)</option>
+                                <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (경량화)</option>
+                                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
                                 <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
                                 <option value="gemini-2.0-pro">Gemini 2.0 Pro</option>
                                 <option value="custom">Custom Model ID...</option>
                             </select>
 
-                            {(!["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-pro"].includes(model)) && (
+                            {(!["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-pro"].includes(model)) && (
                                 <input
                                     type="text"
                                     value={model}
